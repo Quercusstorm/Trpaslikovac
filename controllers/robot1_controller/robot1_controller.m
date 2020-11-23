@@ -15,7 +15,12 @@ TIME_STEP = 64;
 % get and enable devices, e.g.:
 %  camera = wb_robot_get_device('camera');
 %  wb_camera_enable(camera, TIME_STEP);
-%  motor = wb_robot_get_device('motor');
+left_motor = wb_robot_get_device('left_motor');
+right_motor = wb_robot_get_device('right_motor');
+wb_motor_set_position(left_motor,inf);
+wb_motor_set_velocity(left_motor, 2);
+wb_motor_set_position(right_motor,inf);
+wb_motor_set_velocity(right_motor, 2);
 
 % main loop:
 % perform simulation steps of TIME_STEP milliseconds

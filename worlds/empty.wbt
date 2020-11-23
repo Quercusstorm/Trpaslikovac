@@ -15,6 +15,10 @@ RectangleArena {
   wallHeight 0.05
 }
 TinkerbotsBase {
+  hidden translation_9 -1.9521964718845382e-05 -6.064310997810907e-10 -9.492173233850709e-07
+  hidden rotation_9 5.6684816456079016e-05 0.9999999981592553 -2.1640720092234843e-05 0.0009110512309393752
+  hidden translation_15 -1.952559585910712e-05 -4.016990691468879e-09 -9.395293255123893e-07
+  hidden rotation_15 -5.677998076079998e-05 0.9999999981154513 2.3348048852353827e-05 0.0009110512328891634
   translation 0 0.03 0
   controller "robot1_controller"
   upSlot TinkerbotsCube {
@@ -32,7 +36,7 @@ TinkerbotsBase {
     name "Cube_5"
     rightSlot TinkerbotsMotor {
       rotation 0 0 1 1.5707996938995747
-      name "Left_motor"
+      name "left_motor"
       backSlot TinkerbotsAxle {
         name "axle_left"
         endSlot TinkerbotsWheel {
@@ -53,4 +57,23 @@ TinkerbotsBase {
       }
     }
   }
+  extensionSlot [
+    Lidar {
+      translation 0 0.02 0.04
+      children [
+        DEF lidar_sensor Shape {
+          appearance PBRAppearance {
+            baseColor 0.152941 0.152941 0.152941
+          }
+          geometry Cylinder {
+            height 0.02
+            radius 0.015
+          }
+        }
+      ]
+      boundingObject USE lidar_sensor
+      physics Physics {
+      }
+    }
+  ]
 }
