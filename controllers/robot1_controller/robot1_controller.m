@@ -17,17 +17,27 @@ TIME_STEP = 64;
 %  wb_camera_enable(camera, TIME_STEP);
 left_motor = wb_robot_get_device('left_motor');
 right_motor = wb_robot_get_device('right_motor');
-wb_motor_set_position(left_motor,inf);
-wb_motor_set_velocity(left_motor, 2);
-wb_motor_set_position(right_motor,inf);
-wb_motor_set_velocity(right_motor, 2);
 
+
+%%wb_motor_set_position(left_motor,inf);
+%wb_motor_set_velocity(left_motor, 2);
+%wb_motor_set_position(right_motor,inf);
+%%wb_motor_set_velocity(right_motor, 2);
+
+%  camera = wb_robot_get_device('camera');
+%  wb_camera_enable(camera, TIME_STEP);
 % main loop:
 % perform simulation steps of TIME_STEP milliseconds
 % and leave the loop when Webots signals the termination
 %
-while wb_robot_step(TIME_STEP) ~= -1
 
+ sensor = wb_robot_get_device('sensor');
+ wb_lidar_enable(sensor, TIME_STEP);
+ wb_lidar_enable_point_cloud(sensor);
+
+while wb_robot_step(TIME_STEP) ~= -1
+ points = wb_lidar_get_point_cloud(sensor)
+ 
   % read the sensors, e.g.:
   %  rgb = wb_camera_get_image(camera);
 

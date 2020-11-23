@@ -4,7 +4,7 @@ WorldInfo {
 }
 Viewpoint {
   orientation -0.33344802012208385 0.8842913328813098 0.32686580804308535 1.5260122213754361
-  position 0.411075594309146 0.32126264506087143 0.020251832942915562
+  position 0.4230309261893483 0.3306088318459206 0.022504350803333385
 }
 TexturedBackground {
 }
@@ -12,13 +12,10 @@ TexturedBackgroundLight {
 }
 RectangleArena {
   floorTileSize 0.1 0.1
-  wallHeight 0.05
+  wallHeight 0.08
 }
 TinkerbotsBase {
-  hidden translation_9 -1.9521964718845382e-05 -6.064310997810907e-10 -9.492173233850709e-07
-  hidden rotation_9 5.6684816456079016e-05 0.9999999981592553 -2.1640720092234843e-05 0.0009110512309393752
-  hidden translation_15 -1.952559585910712e-05 -4.016990691468879e-09 -9.395293255123893e-07
-  hidden rotation_15 -5.677998076079998e-05 0.9999999981154513 2.3348048852353827e-05 0.0009110512328891634
+  hidden translation_9 4.50097782112824e-11 0 -2.0816681711721685e-17
   translation 0 0.03 0
   controller "robot1_controller"
   upSlot TinkerbotsCube {
@@ -60,6 +57,8 @@ TinkerbotsBase {
   extensionSlot [
     Lidar {
       translation 0 0.02 0.04
+      rotation 0 1 0 3.141592653589793
+      scale 1.19298 1.19298 1.19298
       children [
         DEF lidar_sensor Shape {
           appearance PBRAppearance {
@@ -71,9 +70,17 @@ TinkerbotsBase {
           }
         }
       ]
+      name "sensor"
       boundingObject USE lidar_sensor
       physics Physics {
       }
+      rotationStep 0.261793
+      horizontalResolution 720
+      fieldOfView 6.2832
+      numberOfLayers 1
+      near 0.1
+      minRange 0.1
+      maxRange 2
     }
   ]
 }
