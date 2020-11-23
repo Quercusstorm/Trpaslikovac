@@ -16,6 +16,7 @@ RectangleArena {
 }
 TinkerbotsBase {
   translation 0 0.03 0
+  controller "robot1_controller"
   upSlot TinkerbotsCube {
     name "Cube_3"
   }
