@@ -30,15 +30,15 @@ right_motor = wb_robot_get_device('right_motor');
 % perform simulation steps of TIME_STEP milliseconds
 % and leave the loop when Webots signals the termination
 %
- sensor = wb_robot_get_device('sensor');
- wb_lidar_enable(sensor, TIME_STEP);
- wb_lidar_enable_point_cloud(sensor);
+ lidar = wb_robot_get_device('lidar');
+ wb_lidar_enable(lidar, TIME_STEP);
+ wb_lidar_enable_point_cloud(lidar);
 i=0
 while wb_robot_step(TIME_STEP) ~= -1
-[points]=lidar_scan(sensor);
+[points]=lidar_scan(lidar);
 if i==200
  points.x
- points.z
+ points.y
  i=0;
  else i=i+1;
 end
