@@ -35,10 +35,13 @@ right_motor = wb_robot_get_device('right_motor');
  wb_lidar_enable_point_cloud(lidar);
 i=0
 while wb_robot_step(TIME_STEP) ~= -1
-[points]=lidar_scan(lidar);
+[coordinates]=lidar_scan(lidar);
 if i==200
- points.x
- points.y
+%points.x
+coordinates
+
+ %points.x
+ %points.z
  i=0;
  else i=i+1;
 end
