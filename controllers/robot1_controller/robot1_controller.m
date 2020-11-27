@@ -19,10 +19,7 @@ left_motor = wb_robot_get_device('left_motor');
 right_motor = wb_robot_get_device('right_motor');
 
 
-%%wb_motor_set_position(left_motor,inf);
-%wb_motor_set_velocity(left_motor, 2);
-%wb_motor_set_position(right_motor,inf);
-%%wb_motor_set_velocity(right_motor, 2);
+%%
 
 %  camera = wb_robot_get_device('camera');
 %  wb_camera_enable(camera, TIME_STEP);
@@ -35,14 +32,13 @@ right_motor = wb_robot_get_device('right_motor');
  wb_lidar_enable_point_cloud(lidar);
 i=0
 while wb_robot_step(TIME_STEP) ~= -1
-[coordinates]=lidar_scan(lidar);
-if i==200
-%points.x
-coordinates
 
- %points.x
- %points.z
- i=0;
+
+if i==40
+[coordinates]=lidar_scan(lidar);
+coordinates(1).x
+plot([coordinates.x],-[coordinates.z])
+i=0;
  else i=i+1;
 end
  %save('points_data.mat','-struct','points')

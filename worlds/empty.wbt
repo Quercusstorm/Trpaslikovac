@@ -3,8 +3,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation 0.21624644398825585 0.9511504807558409 0.2203411863913938 4.455330930364367
-  position -0.7438160083145562 0.41827665589480995 -0.11273905595814222
+  orientation -0.08780708933537554 0.9871166065606823 0.13375619654645066 2.00377390004323
+  position 0.5683930609936015 0.2541625828190276 -0.13838019579166166
 }
 TexturedBackground {
 }
@@ -14,13 +14,29 @@ RectangleArena {
   floorTileSize 0.1 0.1
   wallHeight 0.08
 }
+Solid {
+  translation 0 0.07 0.22
+  children [
+    DEF cylinder Shape {
+      appearance PBRAppearance {
+        baseColor 1 0 0
+        metalness 0
+      }
+      geometry Cylinder {
+        height 0.07
+        radius 0.01
+      }
+    }
+  ]
+  name "object_1"
+  boundingObject USE cylinder
+  physics Physics {
+  }
+}
 TinkerbotsBase {
   translation 0 0.03 0
-  rotation 0 -1 0 4.692820414042842e-06
+  rotation 0 -1 0 4.6928012867022945e-06
   controller "robot1_controller"
-  upSlot TinkerbotsCube {
-    name "Cube_3"
-  }
   downSlot TinkerbotsCube {
     name "Cube_1"
     upASlot TinkerbotsFinger {
@@ -58,10 +74,9 @@ TinkerbotsBase {
   }
   extensionSlot [
     HokuyoUrg04lx {
-      translation 0 0.031 0.084
+      translation 1.06144e-07 0.0309996 0.041
       rotation -1.2723699999955203e-14 0.9999999999964793 -2.6535899999906573e-06 3.14159
       name "lidar"
-      resolution 2
     }
   ]
 }
