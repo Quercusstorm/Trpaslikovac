@@ -3,8 +3,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation -0.08780708933537554 0.9871166065606823 0.13375619654645066 2.00377390004323
-  position 0.5683930609936015 0.2541625828190276 -0.13838019579166166
+  orientation 0.5368013918429567 0.8169962737046096 0.21062135330551654 5.395537455852863
+  position -0.23817980568356217 0.32417071563234495 0.4544903148204317
 }
 TexturedBackground {
 }
@@ -37,6 +37,8 @@ TinkerbotsBase {
   translation 0 0.03 0
   rotation 0 -1 0 4.6928012867022945e-06
   controller "robot1_controller"
+  upSlot TinkerbotsCube {
+  }
   downSlot TinkerbotsCube {
     name "Cube_1"
     upASlot TinkerbotsFinger {
@@ -73,10 +75,27 @@ TinkerbotsBase {
     }
   }
   extensionSlot [
-    HokuyoUrg04lx {
-      translation 1.06144e-07 0.0309996 0.041
-      rotation -1.2723699999955203e-14 0.9999999999964793 -2.6535899999906573e-06 3.14159
-      name "lidar"
+    Lidar {
+      translation 0 0.03 0.04
+      rotation 0 1 0 3.141592653589793
+      children [
+        DEF Lidar_solid Shape {
+          appearance PBRAppearance {
+            baseColor 1 0.333333 1
+          }
+          geometry Cylinder {
+            height 0.02
+            radius 0.02
+          }
+        }
+      ]
+      boundingObject USE Lidar_solid
+      physics Physics {
+      }
+      horizontalResolution 667
+      fieldOfView 4.19088
+      numberOfLayers 1
+      maxRange 2
     }
   ]
 }
