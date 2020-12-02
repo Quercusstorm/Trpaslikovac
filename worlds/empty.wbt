@@ -3,15 +3,17 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation 0.5368013918429567 0.8169962737046096 0.21062135330551654 5.395537455852863
-  position -0.23817980568356217 0.32417071563234495 0.4544903148204317
+  orientation 0.2617780418567154 0.9245560370437066 0.2768905761626786 4.5841270488116965
+  position -0.426536499544415 0.5377181993531585 -0.0181537449481145
 }
 TexturedBackground {
 }
 TexturedBackgroundLight {
 }
 RectangleArena {
-  floorTileSize 0.1 0.1
+  translation -0.02 0 0
+  floorSize 2 2
+  floorTileSize 0.0254 0.0254
   wallHeight 0.08
 }
 Solid {
@@ -37,6 +39,9 @@ TinkerbotsBase {
   translation 0 0.03 0
   rotation 0 -1 0 4.6928012867022945e-06
   controller "robot1_controller"
+  controllerArgs [
+    ""
+  ]
   upSlot TinkerbotsCube {
   }
   downSlot TinkerbotsCube {
@@ -47,6 +52,29 @@ TinkerbotsBase {
     }
     upDSlot TinkerbotsFinger {
       name "finger_2"
+    }
+    frontSlot TinkerbotsPivot {
+      name "pivot_1"
+      slot TinkerbotsPivot {
+        name "pivot_2"
+        slot TinkerbotsPivot {
+          name "pivot_3"
+          slot TinkerbotsPivot {
+            name "pivot_4"
+            slot TinkerbotsPivot {
+              name "pivot_5"
+              slot TinkerbotsPivot {
+                name "pivot_6"
+                slot TinkerbotsPivot {
+                  name "pivot_7"
+                  slot TinkerbotsGrabber {
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
   leftSlot TinkerbotsCube {
