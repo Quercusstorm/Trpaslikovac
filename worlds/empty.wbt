@@ -3,8 +3,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation 0.13645197247963045 0.9770458876938659 0.16359154179517887 4.519183113824818
-  position -0.8219716875932377 0.4504124696103519 -0.16674755896155669
+  orientation 0.7631902081949862 0.628499031642194 0.15009887854383872 5.687694187576495
+  position -0.1923830757671125 0.17630644193323858 0.2699410560454144
 }
 TexturedBackground {
 }
@@ -97,6 +97,9 @@ TinkerbotsBase {
       boundingObject USE Lidar_solid
       physics Physics {
       }
+      recognitionColors [
+        1 0 0
+      ]
       horizontalResolution 667
       fieldOfView 4.19088
       numberOfLayers 1
