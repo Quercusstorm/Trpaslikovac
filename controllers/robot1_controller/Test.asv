@@ -42,16 +42,7 @@ obstacle = [];
  else
      out_status = 0;                                %error if odd obstacle number
  end
-
- distance_obstacle = [];
+\% obstacle_center = linspace(1,(numel(obstacle))/2); 
  for i=1:(numel(obstacle))/2
      obstacle_center(i) = (obstacle(2*i)+obstacle((2*i)-1))/2;
-     if floor(obstacle_center(i))==ceil(obstacle_center(i))
-     distance_obstacle = [distance_obstacle,distance(obstacle_center(i))];
-     else
-         obstacle_center(i) = (obstacle(2*i)+obstacle((2*i)-1))/2;
-         distance_obstacle = [distance_obstacle,(distance(floor(obstacle_center(i)))+distance(floor(obstacle_center(i))))/2];
-     end
  end
-
-min(distance_obstacle)

@@ -7,6 +7,6 @@ centralWidgetVisible: 1
 projectionMode: PERSPECTIVE
 renderingMode: PLAIN
 orthographicViewHeight: 0.531441
-textFiles: 3 "controllers/robot1_controller/robot1_controller.m" "controllers/robot1_controller/lidar_scan.m" "controllers/robot1_controller/move_robot.m" "controllers/robot1_controller/rotate_robot.m"
+textFiles: 0 "controllers/robot1_controller/robot1_controller.m" "controllers/robot1_controller/lidar_scan.m"
 globalOptionalRendering: LidarPointClouds
 consoles: Console:All:All

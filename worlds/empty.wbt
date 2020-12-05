@@ -3,8 +3,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation 0.7631902081949862 0.628499031642194 0.15009887854383872 5.687694187576495
-  position -0.1923830757671125 0.17630644193323858 0.2699410560454144
+  orientation 0.012476305118354476 -0.8362922889367979 -0.5481419061478925 3.1766849267436155
+  position -0.4718335718168125 2.3895532041045384 -1.1643535075165417
 }
 TexturedBackground {
 }
@@ -17,7 +17,7 @@ RectangleArena {
   wallHeight 0.08
 }
 Solid {
-  translation 0 0.07 0.22
+  translation 0 0.07 0.13
   children [
     DEF cylinder Shape {
       appearance PBRAppearance {
@@ -25,12 +25,50 @@ Solid {
         metalness 0
       }
       geometry Cylinder {
-        height 0.07
-        radius 0.01
+        height 0.063
+        radius 0.025
       }
     }
   ]
   name "object_1"
+  boundingObject USE cylinder
+  physics Physics {
+  }
+}
+Solid {
+  translation -0.88 0.07 -0.08
+  children [
+    DEF cylinder Shape {
+      appearance PBRAppearance {
+        baseColor 0 1 0
+        metalness 0
+      }
+      geometry Cylinder {
+        height 0.063
+        radius 0.025
+      }
+    }
+  ]
+  name "object_3"
+  boundingObject USE cylinder
+  physics Physics {
+  }
+}
+Solid {
+  translation 0.61 0.07 0.54
+  children [
+    DEF cylinder Shape {
+      appearance PBRAppearance {
+        baseColor 0 0 1
+        metalness 0
+      }
+      geometry Cylinder {
+        height 0.063
+        radius 0.025
+      }
+    }
+  ]
+  name "object_2"
   boundingObject USE cylinder
   physics Physics {
   }
