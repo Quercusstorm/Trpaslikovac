@@ -3,8 +3,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation -0.07180400539244428 -0.9743507714585585 -0.21327156155407487 2.499977935965888
-  position -0.7371911943698235 0.5944721039699545 -0.6649480009580373
+  orientation -0.33405825119711874 0.9168706296308055 0.21852536083377802 1.2468282816288738
+  position 0.9486868472710182 0.6410002198007204 0.22879159193105686
 }
 TexturedBackground {
 }
@@ -91,25 +91,19 @@ TinkerbotsBase {
     upDSlot TinkerbotsFinger {
       name "finger_2"
     }
-    frontSlot TinkerbotsPivot {
-      name "pivot_1"
-      slot TinkerbotsPivot {
-        name "pivot_2"
-        slot TinkerbotsPivot {
-          name "pivot_3"
+    frontSlot TinkerbotsCube {
+      frontSlot TinkerbotsCube {
+        backSlot TinkerbotsPivot {
           slot TinkerbotsPivot {
-            name "pivot_4"
             slot TinkerbotsPivot {
-              name "pivot_5"
-              slot TinkerbotsGrabber {
-                fingerASlot TinkerbotsFinger {
-                  name "finger_a"
-                }
-                fingerBSlot TinkerbotsFinger {
-                  name "finger_b"
-                }
-                fingerCSlot TinkerbotsFinger {
-                  name "finger_c"
+              slot TinkerbotsPivot {
+                slot TinkerbotsGrabber {
+                  fingerASlot TinkerbotsFinger {
+                  }
+                  fingerBSlot TinkerbotsFinger {
+                  }
+                  fingerCSlot TinkerbotsFinger {
+                  }
                 }
               }
             }
