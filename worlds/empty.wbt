@@ -3,8 +3,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation -0.06945032561507004 -0.9897184771648597 -0.12503594775276203 2.123236797396749
-  position -0.34157763112839823 0.3294718867911383 -0.1863513546776571
+  orientation -0.07180400539244428 -0.9743507714585585 -0.21327156155407487 2.499977935965888
+  position -0.7371911943698235 0.5944721039699545 -0.6649480009580373
 }
 TexturedBackground {
 }
@@ -103,10 +103,13 @@ TinkerbotsBase {
               name "pivot_5"
               slot TinkerbotsGrabber {
                 fingerASlot TinkerbotsFinger {
+                  name "finger_a"
                 }
                 fingerBSlot TinkerbotsFinger {
+                  name "finger_b"
                 }
                 fingerCSlot TinkerbotsFinger {
+                  name "finger_c"
                 }
               }
             }
