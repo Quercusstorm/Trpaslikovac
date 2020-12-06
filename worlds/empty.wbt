@@ -104,13 +104,10 @@ TinkerbotsBase {
                 slot TinkerbotsGrabber {
                   rotation 0 0 1 1.0472003061004251
                   fingerASlot TinkerbotsFinger {
-                    name "finger_a"
                   }
                   fingerBSlot TinkerbotsFinger {
-                    name "finger_b"
                   }
                   fingerCSlot TinkerbotsFinger {
-                    name "finger_c"
                   }
                 }
               }

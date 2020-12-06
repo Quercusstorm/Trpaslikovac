@@ -50,7 +50,8 @@ obstacle = [];
      distance_obstacle = [distance_obstacle,distance(obstacle_center(i))];
      else
          obstacle_center(i) = (obstacle(2*i)+obstacle((2*i)-1))/2;
-         distance_obstacle = [distance_obstacle,(distance(floor(obstacle_center(i)))+distance(floor(obstacle_center(i))))/2];
+         a =(distance(floor(obstacle_center(i)))+distance(floor(obstacle_center(i))))/2;
+         distance_obstacle = [distance_obstacle,a];
      end
  end
 
