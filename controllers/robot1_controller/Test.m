@@ -36,7 +36,7 @@ obstacle = [];
          if mod(i,2) == 0
              obstacle(i)=floor(obstacle(i));        %round end obstacle points down
          else
-             obstacle(i)=ceil(obstacle(i));         %round end obstacle points up
+             obstacle(i)=ceil(obstacle(i)+1);         %round end obstacle points up
          end
      end
  else
@@ -56,3 +56,9 @@ obstacle = [];
  end
 
 min(distance_obstacle)
+distance(189)
+distance(198)
+distance(252)
+distance(416)
+distance(602)
+distance(609)
