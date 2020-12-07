@@ -1,6 +1,7 @@
 clc,clear
 load('coordinates.mat');
 
+phase = 'place';
 distance = linspace(1,numel(coordinates));  %prealocation
 coordinates_x = linspace(1,numel(coordinates)); %prealocation
 coordinates_z = linspace(1,numel(coordinates)); 
@@ -40,7 +41,7 @@ obstacle = [];
          end
      end
  else
-     out_status = 0;                                %error if odd obstacle number
+     status = 'error';                                %error if odd obstacle number
  end
 
  distance_obstacle = [];
@@ -54,11 +55,31 @@ obstacle = [];
          distance_obstacle = [distance_obstacle,a];
      end
  end
+ average_dist = [];
+ alpha_0 = 240/666;
+ alpha = [];
+ for i=1:(numel(obstacle))/2
+     average_dist(i) = (distance(obstacle(2*i))+distance(obstacle((2*i)-1)))/2;
+     alpha(i) = (obstacle(2*i)*alpha_0 - obstacle((2*i)-1)*alpha_0)/2;
+ end
+ 
+ obstacle_dia = tand(alpha).*average_dist;
+ obstacle_angle = alpha_0*obstacle_center-120;
+ switch phase
+     case 'pick'
+         distance_obstacle = distance_obstacle(find(obstacle_dia < 0.025));
+         obstacle_angle = obstacle_angle(find(obstacle_dia < 0.025));
+ 
+         
+     case 'place'
+         distance_obstacle = distance_obstacle(find(obstacle_dia > 0.025))
+         obstacle_angle = obstacle_angle(find(obstacle_dia > 0.025))     
+ end
+ 
+ [distance_obstacle,I] = min(distance_obstacle);
+ obstacle_angle = obstacle_angle(I);
+ distance = distance_obstacle;
+ angle = obstacle_angle;
 
-min(distance_obstacle)
-distance(189)
-distance(198)
-distance(252)
-distance(416)
-distance(602)
-distance(609)
+
+
