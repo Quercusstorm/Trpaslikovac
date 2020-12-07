@@ -55,9 +55,9 @@ wb_motor_set_velocity(pivot_3, 1 )
 wb_motor_set_velocity(pivot_4, 1 )
 
 
-wb_motor_set_position(pivot_1, -0.4)
+wb_motor_set_position(pivot_1, -0.5)
 wb_motor_set_position(pivot_2, -0.5)
-wb_motor_set_position(pivot_3, -0.65)
+wb_motor_set_position(pivot_3, -0.55)
 wb_motor_set_position(pivot_4, -1.57)
 
 
