@@ -2,6 +2,7 @@ function [new_RM_pos,new_LM_pos] = rotate_robot(angle,speed,acceleration,RM_pos,
 
 left_motor = wb_robot_get_device('left_motor');
 right_motor = wb_robot_get_device('right_motor');
+
 wheel_radius = 0.02625;
 wheels_distance = 0.154;
 
@@ -13,7 +14,7 @@ wb_motor_set_acceleration(left_motor, acceleration);
 wb_motor_set_acceleration(right_motor, acceleration);
 wb_motor_set_position(left_motor,rotate_L);
 wb_motor_set_position(right_motor,rotate_R);
-a = wb_motor_get_position_sensor(left_motor)
+
 new_RM_pos = rotate_R;
 new_LM_pos = rotate_L;
 
