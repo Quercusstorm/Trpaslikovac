@@ -3,8 +3,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation -0.9990310395798448 0.03501529192619737 0.02666291970767309 1.3614124709005686
-  position -0.2947918461816886 3.4311161531159367 0.8233622658695897
+  orientation 0.23420061668956907 -0.9557512705437856 -0.1780156734564825 4.930358394708624
+  position 0.3467714653099861 0.17978467105622756 0.0862023709858571
 }
 TexturedBackground {
 }
@@ -62,18 +62,37 @@ TinkerbotsBase {
     ""
   ]
   upSlot TinkerbotsCube {
+    upASlot TinkerbotsBrickAdapter {
+    }
   }
   downSlot TinkerbotsCube {
     name "Cube_1"
     upASlot TinkerbotsFinger {
-      rotation 0 0 1 1.5708003061004252
-      name "finger_1"
+      rotation 0 0 1 1.57
+    }
+    upBSlot TinkerbotsBrickAdapter {
     }
     upDSlot TinkerbotsFinger {
       name "finger_2"
     }
+    leftASlot TinkerbotsBrickAdapter {
+    }
+    rightASlot TinkerbotsBrickAdapter {
+    }
     frontSlot TinkerbotsCube {
+      upDSlot TinkerbotsBrickAdapter {
+      }
+      leftASlot TinkerbotsBrickAdapter {
+      }
+      rightASlot TinkerbotsBrickAdapter {
+      }
       frontSlot TinkerbotsCube {
+        upBSlot TinkerbotsBrickAdapter {
+        }
+        leftASlot TinkerbotsBrickAdapter {
+        }
+        rightASlot TinkerbotsBrickAdapter {
+        }
         backSlot TinkerbotsPivot {
           name "pivot_1"
           slot TinkerbotsPivot {
@@ -96,31 +115,53 @@ TinkerbotsBase {
           }
         }
       }
+      backASlot TinkerbotsBrickAdapter {
+      }
     }
   }
   leftSlot TinkerbotsCube {
     name "Cube_5"
+    upASlot TinkerbotsBrickAdapter {
+    }
+    leftASlot TinkerbotsBrickAdapter {
+    }
     rightSlot TinkerbotsMotor {
       rotation 0 0 1 1.5707996938995747
       name "left_motor"
+      upASlot TinkerbotsBrickAdapter {
+      }
+      leftASlot TinkerbotsBrickAdapter {
+      }
       backSlot TinkerbotsAxle {
         name "axle_left"
         endSlot TinkerbotsWheel {
         }
       }
     }
+    frontASlot TinkerbotsBrickAdapter {
+    }
   }
   rightSlot TinkerbotsCube {
     name "Cube_4"
+    upASlot TinkerbotsBrickAdapter {
+    }
     leftSlot TinkerbotsMotor {
       rotation 0 0 1 1.5707996938995747
       name "right_motor"
+      upASlot TinkerbotsBrickAdapter {
+      }
+      leftCSlot TinkerbotsBrickAdapter {
+      }
       frontSlot TinkerbotsAxle {
         name "axle_right"
         endSlot TinkerbotsWheel {
           name "right_wheel"
         }
       }
+    }
+    rightASlot TinkerbotsBrickAdapter {
+    }
+    frontASlot TinkerbotsBrickAdapter {
     }
   }
   extensionSlot [
