@@ -11,13 +11,12 @@
 %keyboard;
 
 %variables:
-TIME_STEP = 50; %world time_step
-phase = 'find_ball';
-status = 0;
+TIME_STEP = 64; %world time_step
 LM_pos = 0;
 RM_pos = 0;
-motor_position = 1
-i=0;
+speed = 1;
+acceleration = 5;
+search_phase = 'pick'
 
 %devices
   %Grabber
@@ -41,20 +40,39 @@ wb_lidar_enable(lidar, TIME_STEP);
 wb_lidar_enable_point_cloud(lidar);
 
   %motors
+left_motor = wb_robot_get_device('left_motor');
+right_motor = wb_robot_get_device('right_motor');
+wb_motor_set_velocity(left_motor, speed);
+wb_motor_set_velocity(right_motor, speed);
+wb_motor_set_acceleration(left_motor, acceleration);
+wb_motor_set_acceleration(right_motor, acceleration);
 
   %motor sensor
+motor_pos_L = wb_motor_get_position_sensor(left_motor);
+motor_pos_R = wb_motor_get_position_sensor(right_motor);
+wb_position_sensor_enable(motor_pos_L,TIME_STEP);
+wb_position_sensor_enable(motor_pos_R,TIME_STEP);
+ 
 
-  
 
 
-
-
-
+i=3000;
 while wb_robot_step(TIME_STEP) ~= -1
+if i==3000
+ coordinates = lidar_scan (lidar);
+ %save ('coordinates.mat','coordinates')
+[distance,angle,status]=lidar_search(coordinates,search_phase)
+i=0;
 
+actual_pos_L = wb_position_sensor_get_value(motor_pos_L);
+actual_pos_R = wb_position_sensor_get_value(motor_pos_R);
 
-[RM_pos,LM_pos] = move_robot(0.5,1,5,RM_pos,LM_pos)
+[rotate_R, rotate_L]= move_robot (distance-0.02);
+wb_motor_set_position(left_motor,rotate_L);
+wb_motor_set_position(right_motor,rotate_R);
 
+  else i=i+1;
+end
 
 
 
@@ -62,7 +80,7 @@ while wb_robot_step(TIME_STEP) ~= -1
 
 
 %[RM_pos,LM_pos] = move_robot(0.25,1,5,RM_pos,LM_pos)
-%save ('coordinates.mat','coordinates')
+
 
 
 %wb_motor_set_velocity(pivot_1, 1 )
@@ -78,9 +96,7 @@ while wb_robot_step(TIME_STEP) ~= -1
 
 
 
-%i=0;
- %else i=i+1;
-%end
+
 
 
 

@@ -1,10 +1,11 @@
 clc,clear
 load('coordinates.mat');
 
-phase = 'place';
+phase = 'pick';
 distance = linspace(1,numel(coordinates));  %prealocation
 coordinates_x = linspace(1,numel(coordinates)); %prealocation
 coordinates_z = linspace(1,numel(coordinates)); 
+status = [];
 
 
 for i=1:numel(coordinates)                          %coordinates matrix
@@ -41,10 +42,15 @@ obstacle = [];
          end
      end
  else
-     status = 'error';                                %error if odd obstacle number
+     status = 0;                                %error if odd obstacle number
  end
-
+ if status == 0
+     angle = 45;
+     distance = 0.1;
+ else
+ 
  distance_obstacle = [];
+ obstacle_center=[];
  for i=1:(numel(obstacle))/2
      obstacle_center(i) = (obstacle(2*i)+obstacle((2*i)-1))/2;
      if floor(obstacle_center(i))==ceil(obstacle_center(i))
@@ -67,19 +73,29 @@ obstacle = [];
  obstacle_angle = alpha_0*obstacle_center-120;
  switch phase
      case 'pick'
-         distance_obstacle = distance_obstacle(find(obstacle_dia < 0.025));
-         obstacle_angle = obstacle_angle(find(obstacle_dia < 0.025));
+           sorted_dia_map = find(obstacle_dia < 0.025);
  
          
      case 'place'
-         distance_obstacle = distance_obstacle(find(obstacle_dia > 0.025))
-         obstacle_angle = obstacle_angle(find(obstacle_dia > 0.025))     
+            sorted_dia_map = find(obstacle_dia > 0.025);
  end
+
  
+
+ status = 1;
+ distance_obstacle = distance_obstacle(sorted_dia_map);
  [distance_obstacle,I] = min(distance_obstacle);
  obstacle_angle = obstacle_angle(I);
  distance = distance_obstacle;
  angle = obstacle_angle;
+ 
+ a = isempty(sorted_dia_map);
+ if a == 1
+     status = 0;
+     distance_obstacle = 0.1;
+     angle = 45;
+ end
+ end
 
 
 

@@ -3,6 +3,7 @@ function [distance,angle,status] = lidar_search (coordinates, phase)
 distance = linspace(1,numel(coordinates));  %prealocation
 coordinates_x = linspace(1,numel(coordinates)); %prealocation
 coordinates_z = linspace(1,numel(coordinates)); 
+status = [];
 
 
 for i=1:numel(coordinates)                          %coordinates matrix
@@ -39,10 +40,15 @@ obstacle = [];
          end
      end
  else
-     out_status = 0;                                %error if odd obstacle number
+     status = 0;                                %error if odd obstacle number
  end
-
+ if status == 0
+     angle = 45;
+     distance = 0.1;
+ else
+ 
  distance_obstacle = [];
+ obstacle_center=[];
  for i=1:(numel(obstacle))/2
      obstacle_center(i) = (obstacle(2*i)+obstacle((2*i)-1))/2;
      if floor(obstacle_center(i))==ceil(obstacle_center(i))
@@ -53,13 +59,39 @@ obstacle = [];
          distance_obstacle = [distance_obstacle,a];
      end
  end
+ average_dist = [];
+ alpha_0 = 240/666;
+ alpha = [];
+ for i=1:(numel(obstacle))/2
+     average_dist(i) = (distance(obstacle(2*i))+distance(obstacle((2*i)-1)))/2;
+     alpha(i) = (obstacle(2*i)*alpha_0 - obstacle((2*i)-1)*alpha_0)/2;
+ end
+ 
+ obstacle_dia = tand(alpha).*average_dist;
+ obstacle_angle = alpha_0*obstacle_center-120;
+ switch phase
+     case 'pick'
+           sorted_dia_map = find(obstacle_dia < 0.025);
+ 
+         
+     case 'place'
+            sorted_dia_map = find(obstacle_dia > 0.025);
+ end
 
-min(distance_obstacle)
+ 
 
-switch phase
-    case 'search_5_cm'
-        
-    case 'search_10_cm'
-        
-    otherwise
-        warning ('Unexpected function phase input!'
+ status = 1;
+ distance_obstacle = distance_obstacle(sorted_dia_map);
+ [distance_obstacle,I] = min(distance_obstacle);
+ obstacle_angle = obstacle_angle(I);
+ distance = distance_obstacle;
+ angle = obstacle_angle;
+ 
+ a = isempty(sorted_dia_map);
+ if a == 1
+     status = 0;
+     distance_obstacle = 0.1;
+     angle = 45;
+ end
+ end
+end
