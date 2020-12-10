@@ -17,7 +17,8 @@ RM_pos = 0;
 speed = 1;
 acceleration = 5;
 search_phase = 'pick'
-
+phase =0;
+time = 0;
 %devices
   %Grabber
 pivot_1 = wb_robot_get_device('pivot_1');
@@ -56,22 +57,39 @@ wb_position_sensor_enable(motor_pos_R,TIME_STEP);
 
 
 
-i=3000;
+i=200
 while wb_robot_step(TIME_STEP) ~= -1
-if i==3000
- coordinates = lidar_scan (lidar);
- %save ('coordinates.mat','coordinates')
-[distance,angle,status]=lidar_search(coordinates,search_phase)
-i=0;
-
 actual_pos_L = wb_position_sensor_get_value(motor_pos_L);
 actual_pos_R = wb_position_sensor_get_value(motor_pos_R);
+time = TIME_STEP + time;
 
-[rotate_R, rotate_L]= move_robot (distance-0.02);
-wb_motor_set_position(left_motor,rotate_L);
-wb_motor_set_position(right_motor,rotate_R);
+ coordinates = lidar_scan (lidar);
+[distance,angle,status]=lidar_search(coordinates,search_phase);
+[rotate_R rotate_L]=rotate_robot(angle);
+[move_R, move_L]= move_robot (distance-0.03);
 
-  else i=i+1;
+if phase == 0
+
+    wb_motor_set_position(left_motor,rotate_L+LM_pos);
+    wb_motor_set_position(right_motor,rotate_R+RM_pos);
+       move_time = 1000*speed*abs(rotate_L)+1000 %time in sec
+        if time > move_time
+        phase = 1
+        LM_pos = rotate_L +LM_pos;
+        RM_pos = rotate_R +RM_pos;
+        end
+        end
+if phase == 1
+  wb_motor_set_position(left_motor,move_L+LM_pos);
+   wb_motor_set_position(right_motor,move_R+RM_pos);
+    move_time =1000*speed*abs(rotate_L)+1000
+    if time >move_time
+    phase = 2
+    
+     LM_pos = rotate_L +LM_pos;
+       RM_pos = rotate_R +RM_pos;
+
+end
 end
 
 
@@ -79,7 +97,7 @@ end
 
 
 
-%[RM_pos,LM_pos] = move_robot(0.25,1,5,RM_pos,LM_pos)
+
 
 
 

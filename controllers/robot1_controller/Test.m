@@ -57,7 +57,7 @@ obstacle = [];
      distance_obstacle = [distance_obstacle,distance(obstacle_center(i))];
      else
          obstacle_center(i) = (obstacle(2*i)+obstacle((2*i)-1))/2;
-         a =(distance(floor(obstacle_center(i)))+distance(floor(obstacle_center(i))))/2;
+         a =(distance(floor(obstacle_center(i)))+distance(ceil(obstacle_center(i))))/2;
          distance_obstacle = [distance_obstacle,a];
      end
  end
@@ -70,7 +70,7 @@ obstacle = [];
  end
  
  obstacle_dia = tand(alpha).*average_dist;
- obstacle_angle = alpha_0*obstacle_center-120;
+ obstacle_angle = alpha_0.*obstacle_center-120;
  switch phase
      case 'pick'
            sorted_dia_map = find(obstacle_dia < 0.025);
