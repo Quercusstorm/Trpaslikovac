@@ -16,7 +16,7 @@ LM_pos = 0;
 RM_pos = 0;
 speed = 1;
 acceleration = 5;
-search_phase = 'pick'
+search_phase = 'place'
 phase =0;
 time = 0;
 %devices
@@ -84,12 +84,14 @@ if phase == 1
    wb_motor_set_position(right_motor,move_R+RM_pos);
     move_time =1000*speed*abs(rotate_L)+1000
     if time >move_time
-    phase = 2
+    phase = 0
     
      LM_pos = rotate_L +LM_pos;
-       RM_pos = rotate_R +RM_pos;
+     RM_pos = rotate_R +RM_pos;
 
 end
+LM_pos = actual_pos_L;
+RM_pos = actual_pos_R;
 end
 
 
