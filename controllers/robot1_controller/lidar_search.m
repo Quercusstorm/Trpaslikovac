@@ -1,9 +1,14 @@
 function [distance,angle,status] = lidar_search (coordinates, phase)
 
-distance = linspace(1,numel(coordinates));  %prealocation
-coordinates_x = linspace(1,numel(coordinates)); %prealocation
-coordinates_z = linspace(1,numel(coordinates)); 
-status = [];
+distance = [];
+coordinates_x =[] ;
+coordinates_z = [];
+dif = [];
+status = [0];
+alpha_0 = 240/666;
+center =[];
+diameter = [];
+
 
 
 for i=1:numel(coordinates)                          %coordinates matrix
@@ -12,86 +17,62 @@ for i=1:numel(coordinates)                          %coordinates matrix
 end
 
 distance = ((coordinates_x).^2+(coordinates_z).^2).^0.5;    %calculate distance from each point
- 
-dif = linspace(1,numel(distance)-1);               %prealocation
 obstacle = [];
- 
- for i=1:numel(distance)-1                          %search obstacle end points
+for i=1:length(distance)-1                          %search obstacle end points
     dif(i) = abs(distance(i)-distance(i+1));
     if dif(i) > 0.03
-        obstacle = [obstacle,i];
+        obstacle = [obstacle,i+0.5]
     end
- end
- 
- for i = 1: numel(obstacle)-1                       %edit end points error
+end
+
+for i = 1: length(obstacle)-1                       %edit end points error
  if abs(obstacle(i)-obstacle(i+1)) == 1
-     obstacle(i) = (obstacle(i)+obstacle(i+1))/2;
+     if mod(i,2) == 0 %sudé
      obstacle(i+1) = 1000;
- end
- end
- obstacle(obstacle==1000) = [];                     %delete duplicated end points
- 
- if mod(numel(obstacle),2) == 0                     %if even obstacle number
-     for i = 1:numel(obstacle)
-         if mod(i,2) == 0
-             obstacle(i)=floor(obstacle(i));        %round end obstacle points down
-         else
-             obstacle(i)=ceil(obstacle(i)+1);         %round end obstacle points up
-         end
-     end
- else
-     status = 0;                                %error if odd obstacle number
- end
- if status == 0
-     angle = 45;
-     distance = 0.1;
- else
- 
- distance_obstacle = [];
- obstacle_center=[];
- for i=1:(numel(obstacle))/2
-     obstacle_center(i) = (obstacle(2*i)+obstacle((2*i)-1))/2;
-     if floor(obstacle_center(i))==ceil(obstacle_center(i))
-     distance_obstacle = [distance_obstacle,distance(obstacle_center(i))];
      else
-         obstacle_center(i) = (obstacle(2*i)+obstacle((2*i)-1))/2;
-         a =(distance(floor(obstacle_center(i)))+distance(ceil(obstacle_center(i))))/2;
-         distance_obstacle = [distance_obstacle,a];
+     obstacle(i) = 1000;
      end
  end
- average_dist = [];
- alpha_0 = 240/666;
- alpha = [];
- for i=1:(numel(obstacle))/2
-     average_dist(i) = (distance(obstacle(2*i))+distance(obstacle((2*i)-1)))/2;
-     alpha(i) = (obstacle(2*i)*alpha_0 - obstacle((2*i)-1)*alpha_0)/2;
  end
+ obstacle(obstacle==1000) = []; 
+ if mod(length(obstacle),2) ~= 0
+     status = 0;
+ else
+     for i = 1:length(obstacle)/2
+    center(i) = (obstacle(2*i)+obstacle(2*i-1))/2;
+    center(i)=ceil(center(i));
+     end
+ center_angle = (center.*alpha_0)-120;
+ points_angle = (obstacle.*alpha_0)-120;
+ center_distance = distance(center);
  
- obstacle_dia = tand(alpha).*average_dist;
- obstacle_angle = (alpha_0.*obstacle_center)-120;
+ for i = 1:length(points_angle)/2
+    beta = abs(abs(center_angle(i))-abs(points_angle(2*i))) ;
+ diameter(i) = (center_distance(i)*sind(beta))/(1-sind(beta));
+ end
  switch phase
-     case 'pick'
-           sorted_dia_map = find(obstacle_dia < 0.025);
+     case ('pick')
+         sorted_dia_map = find(diameter < 0.025);
+     case ('place')
+           sorted_dia_map = find(diameter > 0.025);
  
-         
-     case 'place'
-            sorted_dia_map = find(obstacle_dia > 0.025);
  end
-
- 
-
- status = 1;
- distance_obstacle = distance_obstacle(sorted_dia_map);
- [distance_obstacle,I] = min(distance_obstacle);
- obstacle_angle = obstacle_angle(I);
- distance = distance_obstacle;
- angle = obstacle_angle;
- 
  a = isempty(sorted_dia_map);
  if a == 1
      status = 0;
-     distance_obstacle = 0.1;
-     angle = 45;
+
+ else
+ center_distance = center_distance(sorted_dia_map);
+ center_angle = center_angle(sorted_dia_map);
+ [center_distance,I] = min(center_distance);
+ center_angle = center_angle(I);
+ distance = center_distance;
+ angle = center_angle;
+ status = 1;
  end
- end
+end
+if status == 0
+distance=0;
+angle=120;
+end
 end

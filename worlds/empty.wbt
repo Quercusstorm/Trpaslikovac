@@ -3,8 +3,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation 0.8323818511591897 0.5533456812981452 0.03080601969570333 5.1436073410661525
-  position -0.9961415351506293 1.2258851891006184 0.9803672361219017
+  orientation 0.4310631398497639 -0.6887096408446659 -0.5829782157769483 4.575381116954883
+  position 1.0009419994811148 2.0668982304252115 0.5748177877135348
 }
 TexturedBackground {
 }
@@ -17,7 +17,7 @@ RectangleArena {
   wallHeight 0.08
 }
 Solid {
-  translation 0.34 0.07 0.44
+  translation 0.05 0.07 -0.38
   children [
     DEF cylinder Shape {
       appearance PBRAppearance {
@@ -36,7 +36,7 @@ Solid {
   }
 }
 Solid {
-  translation -0.43 0.07 0.62
+  translation -0.43 0.07 0.23
   children [
     DEF cylinder Shape {
       appearance PBRAppearance {
