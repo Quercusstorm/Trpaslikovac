@@ -66,13 +66,13 @@ for i = 1: length(obstacle)-1                       %edit end points error
  center_angle = center_angle(sorted_dia_map);
  [center_distance,I] = min(center_distance);
  center_angle = center_angle(I);
- distance = center_distance;
+ distance = center_distance -0.025;
  angle = center_angle;
  status = 1;
  end
 end
 if status == 0
-distance=0;
-angle=120;
+distance = 0;
+angle = 180;
 end
 end
