@@ -3,8 +3,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation 0.9037449695582027 -0.19525330912161537 -0.38094773299666973 5.271305096770844
-  position 0.3549253441536263 1.2526729420660603 1.163617101712428
+  orientation 0.13457276961780223 -0.9872888957518728 -0.0845624384844791 4.836983721224345
+  position 0.5714887923528947 0.20978157021688648 0.05095438882031246
 }
 TexturedBackground {
 }
@@ -53,6 +53,11 @@ Solid {
   boundingObject USE cylinder
   physics Physics {
   }
+}
+RubberDuck {
+  translation 0.14 0.09 0.04
+  rotation 0 1 0 -1.5707953071795862
+  scale 0.3
 }
 TinkerbotsBase {
   translation 0 0.03 0
