@@ -21,7 +21,7 @@ obstacle = [];
 for i=1:length(distance)-1                          %search obstacle end points
     dif(i) = abs(distance(i)-distance(i+1));
     if dif(i) > 0.03
-        obstacle = [obstacle,i+0.5]
+        obstacle = [obstacle,i+0.5];
     end
 end
 
