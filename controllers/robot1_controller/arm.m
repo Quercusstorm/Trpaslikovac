@@ -1,6 +1,6 @@
 function[a,b,c]= arm (arm_phase)
   switch (arm_phase)
-  
+
     case  ('up')
       a = 0;
       b = 0;
