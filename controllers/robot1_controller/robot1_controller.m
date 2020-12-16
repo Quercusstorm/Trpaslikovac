@@ -27,10 +27,11 @@ arm_speed = 1;
 arm_acceleration = 5;
 
 search_phase = "pick"
-phase = 1;
+phase = "rotate";
 time = 0;
 read = 1;
 time_delay = 1000;
+simulation_stop = 0;
 
 %devices
   %Arm and grabber
@@ -93,8 +94,7 @@ read = 0;
 end
 
 
-  if phase == 1 %rotate
-  faze = 1
+  if phase == "rotate"
       wb_motor_set_position(left_motor,rotate_L + LM_pos);
       wb_motor_set_position(right_motor,rotate_R + RM_pos);
          move_time = 1000 * move_speed * abs(rotate_L) + time_delay; %time in sec
@@ -102,7 +102,7 @@ end
             if status == 0
               read = 1;
             else
-                phase = 2;
+                phase = "move";
              end
              time = 0;
              LM_pos = rotate_L + LM_pos;
@@ -111,18 +111,17 @@ end
           
           end
   
-  if phase == 2 %move
-  faze =2
+  if phase == "move"
     wb_motor_set_position(left_motor,move_L + LM_pos);
     wb_motor_set_position(right_motor,move_R + RM_pos);
       move_time = 1000 * move_speed * abs(move_L) + time_delay;
       if time > move_time
         if search_phase == "pick"
           arm_phase = "open";
-          phase = 3;
+          phase = "grabber";
         else
           arm_phase = "down";
-          phase = 4;
+          phase = "arm";
         end
         LM_pos = move_L + LM_pos;
         RM_pos = move_R + RM_pos;
@@ -130,33 +129,31 @@ end
       end
   end
   
-  if phase == 3 %grabber
-  faze = 3
+  if phase == "grabber"
         [grab_pos_1,grab_pos_2,grab_pos_3] = arm (arm_phase); 
         wb_motor_set_position(finger_a,grab_pos_1);
         wb_motor_set_position(finger_b,grab_pos_2);
         wb_motor_set_position(finger_c,grab_pos_3);
         move_time = 1000 * grabber_speed * abs(grab_pos_3) + time_delay;
        if time > move_time
-       arm_phase
          
          if search_phase == "pick"
            
            if arm_phase == "open"
-             phase = 4;
+             phase = "arm";
              arm_phase = "down";
            else
-             phase = 5;
+             phase = "search_switch";
            end
         
          else 
            
            if arm_phase == "open"
-               phase = 4;
+               phase = "arm";
                arm_phase = "up";
             else
             
-               phase = 5;
+               phase = "search_switch";
             end
           end
          
@@ -164,41 +161,54 @@ end
        end
   end 
   
-  if phase == 4 %arm
-  faze = 4
+  if phase == "arm"
         
-        [arm_pos_1,arm_pos_2,arm_pos_3] = arm (arm_phase); %ok
+        [arm_pos_1,arm_pos_2,arm_pos_3] = arm (arm_phase);
         wb_motor_set_position(pivot_1,arm_pos_1);
         wb_motor_set_position(pivot_2,arm_pos_1);
         wb_motor_set_position(pivot_3,arm_pos_2);
         wb_motor_set_position(pivot_4,arm_pos_3);
         move_time = 1000 * arm_speed * abs(arm_pos_3) + time_delay;
        if time > move_time
-       arm_phase
-       phase
          if search_phase == "pick"
            if arm_phase == "down"
              arm_phase = "close";
-             phase = 3;
+             phase = "grabber";
             else 
-              phase = 5;
+              phase = "search_switch";
             end
          else
            if arm_phase == "down"
              arm_phase = "open";
-             phase = 3;
+             phase = "grabber";
            else 
-             phase = 5;
+             phase = "search_switch";
            end
          end
         time = 0;
       end
    end
 
-  if phase == 5
+  if phase == "search_switch"
+    if simulation_stop == 1
+    return
+    else
+       
+       [move_R, move_L] = move_robot (-0.12);
+       wb_motor_set_position(left_motor,move_L + LM_pos);
+       wb_motor_set_position(right_motor,move_R + RM_pos);
+       move_time = 1000 * move_speed * abs(move_L) + time_delay;
+       if time > move_time
        search_phase = "place";
        read = 1;
-       phase = 1;
+       phase = "rotate";
+       simulation_stop = 1;
+       LM_pos = move_L + LM_pos;
+       RM_pos = move_R + RM_pos;
+       time = 0;
+       end
+       
+    end
   end 
 
    %wb_motor_set_position(finger_a, grabber)
